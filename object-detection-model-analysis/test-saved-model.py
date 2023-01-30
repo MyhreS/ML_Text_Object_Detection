@@ -1,11 +1,11 @@
+import matplotlib.pyplot as plt
 import tensorflow as tf
 from PIL import Image
 import numpy as np
-from matplotlib import pyplot as plt
 from six import BytesIO
-import cv2
 
 saved_model_path = '../saved_models/inference_graph/saved_model'
+
 def load_image_into_numpy_array(path):
   """Load an image from file into a numpy array.
 
@@ -47,8 +47,8 @@ def reframe_box_masks_to_image_masks(box_masks, boxes, image_height, image_width
         return tf.cast(resized_crops, box_masks.dtype)
     else:
         return tf.zeros([0, image_height, image_width, 1], box_masks.dtype)
+
 def run_inference_for_single_image(model, image):
-    image = np.asarray(image)
     input_tensor = tf.convert_to_tensor(image)
     input_tensor = input_tensor[tf.newaxis, ...]
 
@@ -71,16 +71,6 @@ def run_inference_for_single_image(model, image):
 
     return output_dict
 
-# Load the model
-model = tf.saved_model.load(saved_model_path)
-
-# Load image
-image_np = load_image_into_numpy_array('../data/dataset-test-words/1.jpg')
-output_dict = run_inference_for_single_image(model, image_np)
-
-detection_boxes = output_dict['detection_boxes']
-detection_scores = output_dict['detection_scores']
-
 # Cut the bounding boxes out of the image
 def cut_boxes_from_image(image, boxes, scores):
     images = []
@@ -94,7 +84,21 @@ def cut_boxes_from_image(image, boxes, scores):
         ymax = int(ymax * image.shape[0])
         images.append(image[xmin:xmax, ymin:ymax])
     return images
+
+# Load the model
+model = tf.saved_model.load(saved_model_path)
+
+# Load image
+image_np = load_image_into_numpy_array('../data/dataset-test-words/1.jpg')
+output_dict = run_inference_for_single_image(model, image_np)
+
+detection_boxes = output_dict['detection_boxes']
+detection_scores = output_dict['detection_scores']
+
 images = cut_boxes_from_image(image_np, detection_boxes, detection_scores)
+
+plt.imshow(images[1])
+plt.show()
 
 """
 # This creates an image with the bounding boxes drawn on it
