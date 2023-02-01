@@ -1,2 +1,2 @@
 # Detect-text
- A individual project in the course Applied Computer science.
+An individual project in the course Applied Computer science.
