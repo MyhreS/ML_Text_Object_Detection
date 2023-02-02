@@ -1,0 +1,7 @@
+TODO
+- Normalize the images coming into the network
+- Create a first residual network
+- Create an end-to-end network with the inference graph and the residual network, with the layers needed between them.
+   - A object detection results layer. That extracts the results and makes them into images.
+   - Reshape layer
+   - Normalization layer and grayscale layer
