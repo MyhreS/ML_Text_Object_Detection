@@ -5,11 +5,17 @@ import tensorflow as tf
 
 number_outputs = 20
 
-# TODO: Make images grayscale and normalize them.
 # Read data/test_labels.csv
 csv = pd.read_csv('../data/alt_test_labels.csv')
 # Read the images using the test_labels dataframe
 images = csv['Image'].apply(lambda x: plt.imread('../data/test/' + x))
+#Make the images grayscale
+images = [np.dot(image[...,:3], [0.299, 0.587, 0.114]) for image in images]
+# Normalize the images
+images = [image/255 for image in images]
+# Make into np array
+images = np.array(images)
+
 # Split images into training and validation sets manually
 train_images = images[:7000]
 val_images = images[7000:]
@@ -42,7 +48,7 @@ print(train_images.shape)
 print(val_images.shape)
 
 # Create a model
-inputs = tf.keras.Input(shape=(50, 250, 3))
+inputs = tf.keras.Input(shape=(50, 250, 1))
 conv1 = tf.keras.layers.Conv2D(16, (3,3), activation='relu')(inputs)
 pool1 = tf.keras.layers.MaxPooling2D(2, 2)(conv1)
 pool2 = tf.keras.layers.MaxPooling2D(2, 2)(pool1)
@@ -57,8 +63,8 @@ model.compile(optimizer='adam', loss=loss, metrics=['accuracy'])
 # Summary of the model
 model.summary()
 
-#model.fit(train_images_tensor, [train_labels[0], train_labels[1], train_labels[2], train_labels[3], train_labels[4], train_labels[5], train_labels[6], train_labels[7], train_labels[8], train_labels[9], train_labels[10], train_labels[11], train_labels[12], train_labels[13], train_labels[14], train_labels[15], train_labels[16], train_labels[17], train_labels[18], train_labels[19]], epochs=1, batch_size=16)
-model.fit(train_images_tensor, [label for label in train_labels], epochs=1, batch_size=16)
+# Model fit with the val images and labels too
+model.fit(train_images_tensor, [label for label in train_labels], epochs=1, batch_size=16, validation_data=(val_images_tensor, [label for label in val_labels]))
 
 
 
