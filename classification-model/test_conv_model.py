@@ -1,5 +1,6 @@
 import tensorflow as tf
-def create_test_conv_model():
+
+def create_test_conv_model(number_output_layers):
     # Create a model
     inputs = tf.keras.Input(shape=(50, 250, 1))
     conv1 = tf.keras.layers.Conv2D(16, (3,3), activation='relu')(inputs)
