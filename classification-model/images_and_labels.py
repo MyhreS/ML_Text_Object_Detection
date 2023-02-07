@@ -15,31 +15,20 @@ def get_images_and_labels(path_to_images, path_to_labels_csv, number_output_laye
     # Make into np array
     images = np.array(images)
 
-    # Split images into training and validation sets manually
-    train_images = images[:7000]
-    val_images = images[7000:]
     # Convert the images to tensors
-    train_images_list = [tf.convert_to_tensor(image, dtype=tf.float32) for image in train_images]
-    train_images_tensor = tf.stack(train_images_list)
-    val_images_list = [tf.convert_to_tensor(image, dtype=tf.float32) for image in val_images]
-    val_images_tensor = tf.stack(val_images_list)
+    images_list = [tf.convert_to_tensor(image, dtype=tf.float32) for image in images]
+    images_tensor = tf.stack(images_list)
 
     # Get labels
     chars_list = [csv[f"char_{i}"].apply(lambda x: x) for i in range(1, number_output_layers + 1)]
     # Converting the labels into categorical to fit the model
-    labels = []
+    labels_categorical = []
     for i, char_list in enumerate(chars_list):
         one_colum_labels = tf.keras.utils.to_categorical(char_list, num_classes=27)
-        labels.append(one_colum_labels)
-    # Splitting the labels into training and validation sets
-    train_labels = []
-    val_labels = []
-    for label in labels:
-        train_labels.append(np.array(label[:7000]))
-        val_labels.append(np.array(label[7000:]))
-    train_labels = np.array(train_labels)
-    val_labels = np.array(val_labels)
+        labels_categorical.append(one_colum_labels)
+    labels_categorical = np.array(labels_categorical)
 
-    return train_images_tensor, val_images_tensor, train_labels, val_labels
+    return  images_tensor, labels_categorical
+
 
 
