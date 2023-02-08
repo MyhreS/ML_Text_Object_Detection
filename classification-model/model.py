@@ -19,8 +19,14 @@ model.compile(optimizer='adam', loss=loss, metrics=['accuracy'])
 # Summary of the model
 model.summary()
 
+# Add tensorboard
+tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir='../logs/resnet-1', histogram_freq=1)
+
 # Model fit with the val images and labels too
-model.fit(train_images, [label for label in train_labels], epochs=1, batch_size=16, validation_data=(val_images, [label for label in val_labels]))
+model.fit(train_images, [label for label in train_labels], epochs=1, batch_size=16, validation_data=(val_images, [label for label in val_labels]), callbacks=[tensorboard_callback])
+
+# Save the model
+model.save('../saved_models/resnet-1/model.h5')
 
 
 
