@@ -1,12 +1,12 @@
-import glob
-
-import cv2
-import matplotlib.pyplot as plt
 import tensorflow as tf
 from PIL import Image
 import numpy as np
 from six import BytesIO
-import pandas as pd
+
+"""
+This script contains utility functions for the object detection model.
+"""
+
 def load_image_into_numpy_array(path):
   """Load an image from file into a numpy array.
 
