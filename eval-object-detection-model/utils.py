@@ -1,11 +1,12 @@
+import glob
+
+import cv2
 import matplotlib.pyplot as plt
 import tensorflow as tf
 from PIL import Image
 import numpy as np
 from six import BytesIO
-
-saved_model_path = '../saved_models/inference_graph/saved_model'
-
+import pandas as pd
 def load_image_into_numpy_array(path):
   """Load an image from file into a numpy array.
 
@@ -34,6 +35,7 @@ def reframe_image_corners(boxes):
     ymax_out = (1 - ymin) / height
     xmax_out = (1 - xmin) / width
     return tf.stack([ymin_out, xmin_out, ymax_out, xmax_out], axis=1)
+
 def reframe_box_masks_to_image_masks(box_masks, boxes, image_height, image_width):
     if tf.shape(box_masks)[0] > 0:
         num_boxes = tf.shape(box_masks)[0]
@@ -84,48 +86,3 @@ def cut_boxes_from_image(image, boxes, scores):
         ymax = int(ymax * image.shape[0])
         images.append(image[xmin:xmax, ymin:ymax])
     return images
-
-# Load the model
-model = tf.saved_model.load(saved_model_path)
-
-# Load image
-image_np = load_image_into_numpy_array('../data/dataset-test-words/1.jpg')
-output_dict = run_inference_for_single_image(model, image_np)
-
-detection_boxes = output_dict['detection_boxes']
-detection_scores = output_dict['detection_scores']
-
-images = cut_boxes_from_image(image_np, detection_boxes, detection_scores)
-
-plt.imshow(images[1])
-plt.show()
-
-"""
-# This creates an image with the bounding boxes drawn on it
-def draw_boxes_on_image(image, boxes, scores, line_width=2):
-    """"""Draw bounding boxes on an image.
-
-    Args:
-    - image: numpy array representing the image
-    - boxes: list of bounding box coordinates, in the format of [[xmin, ymin, xmax, ymax]]
-    - color: tuple representing the color of the boxes in (B, G, R) format
-    - line_width: integer representing the width of the lines
-
-    Returns:
-    - image: numpy array representing the image with the bounding boxes drawn on it
-    """"""
-    for box, score in zip(boxes, scores):
-        if score < 0.2:
-            continue
-        xmin, ymin, xmax, ymax = box
-        xmin = int(xmin * image.shape[1])
-        ymin = int(ymin * image.shape[0])
-        xmax = int(xmax * image.shape[1])
-        ymax = int(ymax * image.shape[0])
-        cv2.rectangle(image, (ymin, xmin), (ymax, xmax), (0, 255, 0), line_width)
-    return image
-
-new_image = draw_boxes_on_image(image_np, detection_boxes, detection_scores)
-plt.imshow(new_image)
-plt.show()
-"""
