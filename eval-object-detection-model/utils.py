@@ -101,7 +101,7 @@ def draw_boxes_on_image(image, boxes, scores, line_width=2):
     - image: numpy array representing the image with the bounding boxes drawn on it
     """
     for box, score in zip(boxes, scores):
-        if score < 0.2:
+        if score < 0.1:
             continue
         xmin, ymin, xmax, ymax = box
         xmin = int(xmin * image.shape[1])
