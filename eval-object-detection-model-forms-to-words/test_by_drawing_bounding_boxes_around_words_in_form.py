@@ -7,7 +7,7 @@ import utils
 This script tests the saved model by drawing bounding boxes around the detected words from a single form.
 """
 
-saved_model_path = '../saved_models/object-detectors/faster-rcnn-training-v2/inference_graph/saved_model'
+saved_model_path = '../saved_models/object-detectors/faster-rcnn-training-v2-for-forms/inference_graph/saved_model'
 
 # Load the model
 model = tf.saved_model.load(saved_model_path)
