@@ -15,7 +15,7 @@ Then create a folder for object detection
 
 Run this from 'object-detection' to train
 $ python model_main_tf2.py --pipeline_config_path=path/to/your/config/{model_name}.config --model_dir=path/to/output/training/folder --alsologtostderr
-Example: $ python model_main_tf2.py --pipeline_config_path=faster-rcnn-training/config/faster_rcnn_resnet101_v1_1024x1024_coco17_tpu-8.config --model_dir=faster-rcnn-training/training --alsologtostderr
+Example: $ python model_main_tf2.py --pipeline_config_path=faster-rcnn-training-v2-for-characters/config/faster_rcnn_resnet101_v1_1024x1024_coco17_tpu-8.config --model_dir=faster-rcnn-training-v2-for-characters/training --alsologtostderr
 
 Run this from 'object-detection' to get Tensorboard
 $ tensorboard --logdir=path/to/train
@@ -23,7 +23,7 @@ Example: $ tensorboard --logdir=training/train
 
 Run this from 'object-detection' to export the trained model to an inference graph
 $ python exporter_main_v2.py --trained_checkpoint_dir=path/to/output/training/folder --pipeline_config_path=path/to/your/config/{model_name}.config --output_directory path/to/your/inference/graph/output/folder
-Example: $ python exporter_main_v2.py --trained_checkpoint_dir=faster-rcnn-training/training --pipeline_config_path=faster-rcnn-training/config/faster_rcnn_resnet101_v1_1024x1024_coco17_tpu-8.config --output_directory inference_graph
+Example: $ python exporter_main_v2.py --trained_checkpoint_dir=faster-rcnn-training-v2-for-characters/training --pipeline_config_path=faster-rcnn-training-v2-for-characters/config/faster_rcnn_resnet101_v1_1024x1024_coco17_tpu-8.config --output_directory faster-rcnn-training-v2-for-characters/inference_graph
 
 Other resources:
 https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf2_training_and_evaluation.md
