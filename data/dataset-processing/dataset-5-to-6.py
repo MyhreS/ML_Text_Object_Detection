@@ -16,16 +16,16 @@ def invert_image(input_file, output_folder):
     inverted_img.save(output_file)
 
 
-train_images = glob.glob("../data/dataset-5-words-with-characters-bb/train/*.jpg")
-test_images = glob.glob("../data/dataset-5-words-with-characters-bb/test/*.jpg")
-val_images = glob.glob("../data/dataset-5-words-with-characters-bb/valid/*.jpg")
+train_images = glob.glob("../../datasets/dataset-5-words-with-characters-bb/train/*.jpg")
+test_images = glob.glob("../../datasets/dataset-5-words-with-characters-bb/test/*.jpg")
+val_images = glob.glob("../../datasets/dataset-5-words-with-characters-bb/valid/*.jpg")
 
 for train_image in train_images:
-    invert_image(train_image, "../data/dataset-6-words-with-characters-bb/train")
+    invert_image(train_image, "../../datasets/dataset-6-words-with-characters-bb/train")
 
 for test_image in test_images:
-    invert_image(test_image, "../data/dataset-6-words-with-characters-bb/test")
+    invert_image(test_image, "../../datasets/dataset-6-words-with-characters-bb/test")
 
 for val_image in val_images:
-    invert_image(val_image, "../data/dataset-6-words-with-characters-bb/valid")
+    invert_image(val_image, "../../datasets/dataset-6-words-with-characters-bb/valid")
 

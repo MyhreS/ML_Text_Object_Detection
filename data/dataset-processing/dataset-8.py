@@ -19,7 +19,7 @@ print(classes)
 for directory in ['train', 'val', 'test']:
     # Iterate through the unique classes and create a folder for each class
     for class_label in df_train['23'].unique():
-        class_folder = os.path.join("../data/dataset-8-emnist-raw/"+directory, str(class_label))
+        class_folder = os.path.join("../../datasets/dataset-8-emnist-raw/"+directory, str(class_label))
         if not os.path.exists(class_folder):
             os.mkdir(class_folder)
 
@@ -49,7 +49,7 @@ for dataframe, name in zip([df_train, df_val, df_test], ['train', 'val', 'test']
         image_3channels = cv2.cvtColor(image_resized, cv2.COLOR_GRAY2BGR)
         # Save the image
         image_name = str(index) + '-' + str(label) + '.png'
-        image_path = '../data/dataset-8-emnist-raw/' + name + '/' + str(label) + '/' + image_name
+        image_path = '../../datasets/dataset-8-emnist-raw/' + name + '/' + str(label) + '/' + image_name
         plt.imsave(image_path, image_3channels)
         i += 1
         if i % 100 == 0:

@@ -1,12 +1,11 @@
 import datetime
 import os
-
 import utils
 import tensorflow as tf
 from tensorflow.keras import layers
 
 # Load data
-train_ds, val_ds, test_ds = utils.load_data('../data/dataset-8-emnist-raw/train', '../data/dataset-8-emnist-raw/val', '../data/dataset-8-emnist-raw/test')
+train_ds, val_ds, test_ds = utils.load_data('../../../datasets/dataset-8-emnist-raw/train', '../../../datasets/dataset-8-emnist-raw/val', '../../../datasets/data/dataset-8-emnist-raw/test')
 
 # Create a ResNet101 model
 def create_resnet101_model(input_shape, num_classes):
@@ -40,7 +39,8 @@ resnet101_model = create_resnet101_model(input_shape, num_classes)
 resnet101_model.summary()
 
 # Create a directory for saved models
-saved_models_dir = '../saved_models/classification'
+
+saved_models_dir = '"../saved_models"'
 if not os.path.exists(saved_models_dir):
     os.makedirs(saved_models_dir)
 

@@ -8,11 +8,11 @@ This script visualizes the dataset-7-raw-test-dataset-4-with-bb
 """
 
 # Load annotations.csv
-annotations = pd.read_csv("../data/dataset-7-raw-test-dataset-4-with-bb/annotations.csv")
+annotations = pd.read_csv("../../datasets/dataset-7-raw-test-dataset-4-with-bb/annotations.csv")
 print(annotations.head())
 
 # Get all the image paths
-image_paths = glob.glob("../data/dataset-7-raw-test-dataset-4-with-bb/*.png")
+image_paths = glob.glob("../../datasets/dataset-7-raw-test-dataset-4-with-bb/*.png")
 
 i = 0
 for image_path in image_paths:

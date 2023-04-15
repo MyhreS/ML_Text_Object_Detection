@@ -3,10 +3,10 @@ import tensorflow as tf
 from images_and_labels import get_images_and_labels
 from residual_block import ResidualBlock
 
-test_tensor, test_labels = get_images_and_labels('../data/dataset-4-words/test/', '../data/dataset-4-words/alt_test_labels.csv', 20)
+test_tensor, test_labels = get_images_and_labels('../../datasets/dataset-4-words/test/', '../../datasets/dataset-4-words/alt_test_labels.csv', 20)
 test_tensor = test_tensor
 # Load tensorflow model
-model = tf.keras.models.load_model('../saved_models/resnet-1/model.h5', custom_objects={'ResidualBlock': ResidualBlock})
+model = tf.keras.models.load_model('../saved-models/resnet-1/model.h5', custom_objects={'ResidualBlock': ResidualBlock})
 
 # Predict
 predictions = model.predict(test_tensor)
